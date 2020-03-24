@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>State in React</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+  <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div id="container"></div>
+  <script type="text/babel">
+    class LightningCounter extends React.Component {
+      constructor(props, context) {
+        super(props, context);
+
+        this.state = {
+          strikes: 0
+        };
+      }
+
+      timerTick = () => {
+        this.setState(prevState => {
+          return {
+            strikes: prevState.strikes + 100
+          };
+        });
+      };
+
+      componentDidMount() {
+        setInterval(this.timerTick, 1000);
+      }
+
+      render() {
+        return <h1>{this.state.strikes}</h1>;
+      }
+    }
+
+    class LightningCounterDisplay extends React.Component {
+      render() {
+        var divStyle = {
+          width: 250,
+          textAlign: "center",
+          backgroundColor: "hsla(51, 15%, 18%, 1)",
+          padding: 40,
+          fontFamily: "sans-serif",
+          color: "gold",
+          borderRadius: 10
+        };
+
+        return (
+          <div style={divStyle}>
+            <LightningCounter />
+          </div>
+        );
+      }
+    }
+
+    ReactDOM.render(
+      <LightningCounterDisplay />,
+      document.querySelector("#container")
+    );
+  </script>
+</body>
+
+</html>
